@@ -4,6 +4,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 source .venv/bin/activate
+export PATH="$HOME/opt/ollama-cli:$PATH"
+
+if ! curl -s -o /dev/null http://localhost:11434/api/version; then
+  ollama serve >> logs/ollama.log 2>&1 &
+  sleep 3
+fi
 
 python3 scripts/generate_post.py
 python3 scripts/build_site.py

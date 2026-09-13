@@ -1,14 +1,17 @@
 # AI・Codex・Claude活用ラボ (自動化ブログ基盤)
 
-Claude APIで記事を自動生成 → 静的サイトにビルド → GitHub Pagesで公開 → (任意)Xに告知、まで無人で回すパイプラインです。
+LLM(無料のローカルOllama、または有料のClaude API)で記事を自動生成 → 静的サイトにビルド → GitHub Pagesで公開 → (任意)Xに告知、まで無人で回すパイプラインです。
 このリポジトリ自体を「AI自動化構築サービス」の実績デモとしても使えます。
+
+**公開中のサイト**: https://t5wprndvyr-lab.github.io/ai-automation-blog/
+**リポジトリ**: https://github.com/t5wprndvyr-lab/ai-automation-blog
 
 ## 構成
 
 ```
 content/posts/*.md     生成された記事(Markdown + 簡易フロントマター)
 docs/                  ビルド後の静的サイト(GitHub Pagesの公開元)
-scripts/generate_post.py  Claude APIで新規記事を1本生成
+scripts/generate_post.py  LLMで新規記事を1本生成(デフォルト: 無料のOllama)
 scripts/build_site.py     Markdown -> HTML変換・サイト生成
 scripts/post_to_x.py      最新記事をXに告知(公式API・任意)
 scripts/publish.sh         上記を一括実行 + git push
@@ -17,42 +20,26 @@ launchd/                  macOSで毎日自動実行するための設定
 
 ## セットアップ手順
 
-### 1. 依存関係(済み)
+### 1. 依存関係・記事生成エンジン(済み)
 `.venv` に `anthropic` / `markdown` / `tweepy` をインストール済みです。
+記事生成は**無料のローカルLLM(Ollama + Qwen2.5 7B)**をデフォルトで使用します(`~/opt/ollama-cli` に導入済み)。
+Claude APIの方が文章品質は上ですが従量課金のため、クレジットを追加した場合は `.env` の `LLM_PROVIDER=anthropic` に切り替えれば使えます。
 
-### 2. Anthropic APIキーを設定
-1. https://console.anthropic.com/ でAPIキーを発行
-2. `.env.example` を `.env` にコピーし、`ANTHROPIC_API_KEY` にキーを貼り付け(**このファイルはあなた自身で編集してください。第三者やチャットにキーを貼らないこと**)
-
-```bash
-cp .env.example .env
-```
+### 2. .env の確認
+`.env` は作成済みです(GitHub Pages公開URLも設定済み)。中身を変えたい場合のみ編集してください。
 
 ### 3. 動作確認(1本手動生成)
 ```bash
+export PATH="$HOME/opt/ollama-cli:$PATH"
+ollama serve &        # 既に起動していれば不要
 source .venv/bin/activate
 cd scripts
 python3 generate_post.py   # 新しい記事が content/posts/ に生成される
 python3 build_site.py      # docs/ に静的サイトが生成される
 ```
 
-### 4. GitHubリポジトリを作成してPages公開
-1. GitHubで新規リポジトリを作成(public推奨)
-2. このフォルダから push:
-   ```bash
-   git init
-   git add .
-   git commit -m "init: AI自動化ブログ基盤"
-   git branch -M main
-   git remote add origin <あなたのリポジトリURL>
-   git push -u origin main
-   ```
-3. GitHubリポジトリの Settings > Pages で
-   - Source: `Deploy from a branch`
-   - Branch: `main` / フォルダ: `/docs`
-   を選択して保存
-4. 数分後、`https://<ユーザー名>.github.io/<リポジトリ名>/` で公開されます
-5. `.env` の `SITE_URL` をこの実際のURLに更新してください
+### 4. GitHubリポジトリ・Pages公開(完了済み)
+リポジトリ作成・push・GitHub Pages設定は完了しています。今後の更新は `git push` するだけで数分後にサイトへ反映されます。
 
 ### 5. 毎日自動実行する(macOS launchd)
 ```bash
