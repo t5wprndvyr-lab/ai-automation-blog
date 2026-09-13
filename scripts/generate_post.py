@@ -9,20 +9,15 @@ LLM_PROVIDER=anthropic (要 ANTHROPIC_API_KEY・従量課金) を .env で切り
     python3 scripts/generate_post.py
 """
 import datetime
-import json
 import os
 import re
 import sys
-import urllib.error
-import urllib.request
 
 from env_loader import load_env
 
 load_env()
 
-LLM_PROVIDER = os.environ.get("LLM_PROVIDER", "ollama").strip().lower()
-OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:7b-instruct")
-OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://localhost:11434")
+from llm import FACT_GUARDRAILS, LANGUAGE_GUARDRAILS, call_llm, parse_title_description_body  # noqa: E402
 
 POSTS_DIR = os.path.join(os.path.dirname(__file__), "..", "content", "posts")
 
@@ -64,15 +59,12 @@ def slugify(title, date_str):
 
 def build_prompt(avoid_titles, angle):
     avoid_block = "\n".join(f"- {t}" for t in avoid_titles[-30:]) or "(まだ記事はありません)"
-    return f"""重要: 必ず日本語のみで出力してください。中国語(簡体字・繁体字)や英語の文章を混ぜることは禁止です。すべての文・見出し・説明を日本語で書いてください。
+    return f"""{LANGUAGE_GUARDRAILS}
 
 あなたは「AI・Codex・Claude活用術」を専門に扱う日本語ブログの執筆者です。
 読者は個人開発者・フリーランスエンジニア・業務効率化に関心がある会社員です。
 
-# 事実として必ず守ること(誤りを書かない)
-- Claude Code は Anthropic 社が開発したAIコーディングツールである(OpenAI製ではない)
-- Codex は OpenAI が開発したAIコーディングツールである(Anthropic製ではない)
-- 上記2つは別々の会社の別々の製品であり、混同して説明しない
+{FACT_GUARDRAILS}
 
 今回の切り口: {angle}
 
@@ -95,62 +87,16 @@ def build_prompt(avoid_titles, angle):
 """
 
 
-def call_ollama(prompt):
-    payload = json.dumps({"model": OLLAMA_MODEL, "prompt": prompt, "stream": False}).encode("utf-8")
-    req = urllib.request.Request(
-        f"{OLLAMA_HOST}/api/generate", data=payload, headers={"Content-Type": "application/json"}
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=300) as resp:
-            data = json.loads(resp.read())
-    except urllib.error.URLError as e:
-        print(
-            f"ERROR: Ollamaに接続できません({e})。`ollama serve` が起動しているか確認してください。",
-            file=sys.stderr,
-        )
-        sys.exit(1)
-    return data["response"].strip()
-
-
-def call_anthropic(prompt):
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("ERROR: ANTHROPIC_API_KEY が設定されていません。.env を確認してください。", file=sys.stderr)
-        sys.exit(1)
-
-    from anthropic import Anthropic
-
-    client = Anthropic(api_key=api_key)
-    resp = client.messages.create(
-        model="claude-sonnet-5",
-        max_tokens=4000,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return resp.content[0].text.strip()
-
-
 def main():
     titles = existing_titles()
     angle = TOPIC_ANGLES[len(titles) % len(TOPIC_ANGLES)]
     prompt = build_prompt(titles, angle)
 
-    if LLM_PROVIDER == "anthropic":
-        text = call_anthropic(prompt)
-    else:
-        text = call_ollama(prompt)
-
-    lines = [l for l in text.splitlines() if l.strip() != ""]
-    if not lines or not lines[0].startswith("TITLE:"):
+    text = call_llm(prompt)
+    title, description, body = parse_title_description_body(text)
+    if title is None:
         print("ERROR: 期待した出力形式ではありません:\n" + text[:500], file=sys.stderr)
         sys.exit(1)
-
-    title = lines[0].split(":", 1)[1].strip()
-    description = ""
-    body_start = 1
-    if len(lines) > 1 and lines[1].startswith("DESCRIPTION:"):
-        description = lines[1].split(":", 1)[1].strip()
-        body_start = 2
-    body = "\n".join(lines[body_start:]).strip()
 
     contact_url = os.environ.get("CONTACT_URL", "").strip()
     cta_text = (

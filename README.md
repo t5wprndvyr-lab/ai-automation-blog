@@ -9,13 +9,17 @@ LLM(無料のローカルOllama、または有料のClaude API)で記事を自�
 ## 構成
 
 ```
-content/posts/*.md     生成された記事(Markdown + 簡易フロントマター)
-docs/                  ビルド後の静的サイト(GitHub Pagesの公開元)
-scripts/generate_post.py  LLMで新規記事を1本生成(デフォルト: 無料のOllama)
-scripts/build_site.py     Markdown -> HTML変換・サイト生成
-scripts/post_to_x.py      最新記事をXに告知(公式API・任意)
-scripts/publish.sh         上記を一括実行 + git push
-launchd/                  macOSで毎日自動実行するための設定
+content/posts/*.md          生成されたブログ記事(無料公開・Markdown)
+content/note_drafts/*.md    生成されたnote有料記事の下書き(git管理外・要レビュー)
+docs/                       ビルド後の静的サイト(GitHub Pagesの公開元)
+docs_note_preview/          noteへのコピペ用プレビューHTML(git管理外)
+scripts/llm.py               Ollama/Anthropic共通のLLM呼び出し
+scripts/generate_post.py     ブログ記事を1本生成(デフォルト: 無料のOllama)
+scripts/generate_note_article.py  ブログ記事の深掘り版をnote有料原稿として生成
+scripts/build_site.py        Markdown -> HTML変換・サイト生成
+scripts/post_to_x.py         最新記事をXに告知(公式API・任意)
+scripts/publish.sh            上記を一括実行 + git push
+launchd/                     macOSで毎日自動実行するための設定
 ```
 
 ## セットアップ手順
@@ -53,7 +57,29 @@ launchctl load ~/Library/LaunchAgents/com.yoshi.aiblog.publish.plist
 https://developer.x.com/ でDeveloperアカウント登録 → Appを作成 → API Key/Secret、Access Token/Secretを取得し `.env` に設定。
 **無料枠でも月500件までWrite(投稿)が可能**です。非公式手段(スクレイピング等)での自動投稿はアカウント凍結リスクがあるため使用しないでください。
 
-### 7. 収益化の設定
+### 7. note有料販売(半自動)
+noteには外部からの自動投稿API自体が存在しないため、投稿ボタンを押す作業だけは手動です。
+それ以外は自動化しています。
+
+```bash
+python3 scripts/generate_note_article.py
+```
+- 公開済みのブログ記事を1本選び、その「実践的な深掘り版」を有料note原稿として生成
+- `content/note_drafts/<slug>.md` に無料試し読み部分+有料部分を保存(**gitには含めません**。
+  有料コンテンツを公開リポジトリにpushすると誰でも無料で読めてしまうため)
+- `docs_note_preview/<slug>.html` にコピペしやすい整形済みプレビューを生成(こちらもgit管理外)
+
+**投稿前に必ずやること(無料モデル特有の癖のため重要)**
+- コード例が実在するコマンド/ライブラリか確認する(架空のpipパッケージ等を生成することがあります)
+- 会社名・製品名などの事実関係を確認する
+- 変な日本語・言語混入がないか確認する
+
+問題なければ `docs_note_preview/<slug>.html` をブラウザで開いて全選択コピーし、
+note.comの新規記事作成画面に貼り付け、note標準の「続きは購入者のみ」機能で
+有料エリアの区切りを設定して公開します。`publish.sh` にも組み込み済みなので、
+毎日の自動実行のたびに下書きが1本ずつ溜まっていきます。
+
+### 8. 収益化の設定
 - **Google AdSense**: サイトに数記事たまってから https://www.google.com/adsense/ に申請 → 承認後、発行された `ca-pub-XXXX` を `.env` の `ADSENSE_CLIENT_ID` に設定して再ビルド
 - **アフィリエイト**: Amazonアソシエイト・A8.net等で商品リンクを取得し、`scripts/generate_post.py` のプロンプトや個別記事に手動で埋め込む
 - **受託営業**: `CONTACT_URL` に自分のポートフォリオ/問い合わせページを設定すると、各記事の末尾に自動でCTAが挿入されます

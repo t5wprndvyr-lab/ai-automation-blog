@@ -13,9 +13,10 @@ fi
 
 python3 scripts/generate_post.py
 python3 scripts/build_site.py
+python3 scripts/generate_note_article.py || echo "note下書き生成をスキップしました"
 
 if git remote get-url origin >/dev/null 2>&1; then
-  git add content/ docs/
+  git add content/posts/ docs/
   git commit -m "chore: 記事を自動追加 ($(date +%F))" || echo "コミットする変更がありません"
   git push
 else
