@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude CodeとCodex、結局どう使い分ける? | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="個人開発・受託の現場でClaude CodeとCodexをどう使い分けるべきかを実例つきで解説します。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>Claude CodeとCodex、結局どう使い分ける?</h1><div class='meta'>2026-09-13</div><p>Mac一台でAI開発を自動化したい人が最初にぶつかる疑問が「Claude CodeとCodex、結局どっちを使えばいいの?」というものです。この記事では実際の使い分け方針を、具体的な作業タイプ別に整理します。</p>
+<h2>結論: 目的で使い分ける</h2>
+<ul>
+<li><strong>既存コードベースの理解・大規模リファクタ・複数ファイル横断の変更</strong> → Claude Code</li>
+<li><strong>単発のスクリプト生成・アイデアのプロトタイピング</strong> → どちらでも大差なし、慣れている方でOK</li>
+<li><strong>CIやターミナル操作を伴う自動化パイプライン</strong> → 両方をシェルスクリプトから呼び出して併用するのが最速</li>
+</ul>
+<p>一つのツールに固執せず、タスクの粒度で切り替えるのが一番ムダがありません。</p>
+<h2>実例: このブログの自動投稿パイプライン</h2>
+<p>このブログ自体、以下のような構成で自動化されています。</p>
+<pre><code class="language-bash">scripts/generate_post.py   # Claude APIで記事を1本生成
+scripts/build_site.py      # Markdown -&gt; 静的HTMLに変換
+scripts/post_to_x.py       # 公式APIでXに告知(任意)
+</code></pre>
+<p><code>launchd</code> で毎朝実行し、記事生成からGitHubへのpushまでを無人で回しています。人が介在するのは「読んで軽く手直しする」ところだけです。</p>
+<h2>受託案件で使うときの注意点</h2>
+<p>クライアント案件でAIコーディングツールを使う場合は、次のチェックリストを必ず確認してください。</p>
+<ul>
+<li>[ ] APIキーやトークンをリポジトリにコミットしていないか(<code>.gitignore</code>で除外)</li>
+<li>[ ] 生成コードのライセンス・著作権上の懸念がないか</li>
+<li>[ ] 自動投稿系の機能が対象プラットフォームの利用規約に違反していないか</li>
+<li>[ ] 本番環境に触れる自動化は必ずドライラン・レビューを挟む</li>
+</ul>
+<p>特に「非公式APIでのSNS自動投稿」はアカウント凍結リスクが高いため、公式APIの範囲内に留めるのが鉄則です。</p>
+<h2>まとめ</h2>
+<p>Claude CodeとCodexはどちらか一方を選ぶものではなく、タスクの性質に応じて併用するのが最も生産的です。自動化パイプラインを組む際は、規約順守とキー管理を最優先にしましょう。</p>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
