@@ -84,6 +84,13 @@ def main():
             if fname.endswith(".md"):
                 posts.append(parse_post(os.path.join(POSTS_DIR, fname)))
 
+    valid_slugs = {p["slug"] for p in posts}
+    posts_out_dir = os.path.join(DOCS_DIR, "posts")
+    if os.path.isdir(posts_out_dir):
+        for fname in os.listdir(posts_out_dir):
+            if fname.endswith(".html") and fname[:-5] not in valid_slugs:
+                os.remove(os.path.join(posts_out_dir, fname))
+
     for post in posts:
         html_body = markdown.markdown(post["body_md"], extensions=["fenced_code", "tables"])
         page = PAGE_TEMPLATE.format(

@@ -17,7 +17,13 @@ from env_loader import load_env
 
 load_env()
 
-from llm import FACT_GUARDRAILS, LANGUAGE_GUARDRAILS, call_llm, parse_title_description_body  # noqa: E402
+from llm import (  # noqa: E402
+    FACT_GUARDRAILS,
+    LANGUAGE_GUARDRAILS,
+    PERSONA_GUARDRAILS,
+    call_llm,
+    parse_title_description_body,
+)
 
 POSTS_DIR = os.path.join(os.path.dirname(__file__), "..", "content", "posts")
 
@@ -61,8 +67,10 @@ def build_prompt(avoid_titles, angle):
     avoid_block = "\n".join(f"- {t}" for t in avoid_titles[-30:]) or "(まだ記事はありません)"
     return f"""{LANGUAGE_GUARDRAILS}
 
-あなたは「AI・Codex・Claude活用術」を専門に扱う日本語ブログの執筆者です。
+あなたは「AI・Codex・Claude活用術」を発信する個人ブログの執筆者です。
 読者は個人開発者・フリーランスエンジニア・業務効率化に関心がある会社員です。
+
+{PERSONA_GUARDRAILS}
 
 {FACT_GUARDRAILS}
 
@@ -82,7 +90,7 @@ def build_prompt(avoid_titles, angle):
 - 具体的な手順・コード例・チェックリストなど実用的な内容を必ず含める
 - 見出し(##)を3〜5個使い読みやすく構成する
 - 誇大な釣り表現や断定しすぎる医療/金融アドバイスは避ける
-- 最後に「## まとめ」を置き、3行以内で締める
+- 「## まとめ」を置いた後、PERSONA_GUARDRAILSで指定された締めの一文を書く
 - 本文の最後に独立した1行として `{{{{CTA}}}}` というプレースホルダーを追記する(これは後処理で置換されるので変更しないこと)
 """
 

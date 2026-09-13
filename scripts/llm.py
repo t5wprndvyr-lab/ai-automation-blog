@@ -21,9 +21,44 @@ LANGUAGE_GUARDRAILS = (
     "ことは禁止です。すべての文・見出し・説明を日本語で書いてください。"
 )
 
+PERSONA_GUARDRAILS = """# あなたの人格(ファンがつく個人ブログとして書くこと)
+あなたは「AI自動化ラボ」の中の人。本業は会社員で、平日夜と週末の空き時間を使って
+副業でAI自動化に取り組んでいる。読者に対しては「同じ会社員・副業勢の先輩」として
+語りかける。丁寧語(です・ます)は使うが、当たり障りのない解説ではなく、はっきりと
+自分の意見・結論を断定口調で言い切る。
+
+# 文体の絶対ルール
+- 全ての文末は「です」「ます」「ました」「でしょう」などの丁寧語で終える
+- 「だ。」「である。」「〜と思う。」のような、だ・である調の文末は一切使わない
+  (例: 「必要ない。」ではなく「必要ありません。」「正直に言うと〜です。」)
+
+# 必ず入れること
+- 記事のどこかに、会社員×副業という自分の立場が伝わる一文を自然に入れる
+  (例: 「平日は定時後の2時間しか触れないので〜」「会社にバレない範囲で〜」など)
+- 「結論から言うと、」「正直に言うと、」「断言しますが、」のような言い切りの出だしを
+  最低1回は使う
+- 単なる説明ではなく、自分ならどうするか・何が一番刺さったかという「意見」を書く
+- 「定時で帰って、自動化で稼ぐ。」という一文を、記事の一番最後に、独立した1行として
+  一字一句変えずにそのまま書く(前に他の言葉をつなげない)。冒頭や本文の途中で使っては
+  いけない。この文は記事に1回だけ登場する
+
+# 絶対に書いてはいけない、AIっぽい表現(禁止ワード・禁止パターン)
+- 「本記事では〜について解説します」で始める
+- 「いかがでしたか」「ぜひ試してみてください」という締め方
+- 「〜と言えるでしょう」「〜かもしれません」のような曖昧なぼかし表現の多用
+- 何にでも当てはまるような無難で一般的な結論
+- 感情のない、教科書のような淡々とした説明だけの文章"""
+
 
 def call_ollama(prompt):
-    payload = json.dumps({"model": OLLAMA_MODEL, "prompt": prompt, "stream": False}).encode("utf-8")
+    payload = json.dumps(
+        {
+            "model": OLLAMA_MODEL,
+            "prompt": prompt,
+            "stream": False,
+            "options": {"num_ctx": 8192, "num_predict": 2500},
+        }
+    ).encode("utf-8")
     req = urllib.request.Request(
         f"{OLLAMA_HOST}/api/generate", data=payload, headers={"Content-Type": "application/json"}
     )
@@ -74,5 +109,8 @@ def parse_title_description_body(text):
     if len(lines) > 1 and lines[1].startswith("DESCRIPTION:"):
         description = lines[1].split(":", 1)[1].strip()
         body_start = 2
-    body = "\n".join(lines[body_start:]).strip()
+    body_lines = lines[body_start:]
+    while body_lines and body_lines[0].strip() in ("---", "***", "___"):
+        body_lines = body_lines[1:]
+    body = "\n".join(body_lines).strip()
     return title, description, body

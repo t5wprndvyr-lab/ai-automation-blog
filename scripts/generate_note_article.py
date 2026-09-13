@@ -19,7 +19,7 @@ from env_loader import load_env
 
 load_env()
 
-from llm import FACT_GUARDRAILS, LANGUAGE_GUARDRAILS, call_llm  # noqa: E402
+from llm import FACT_GUARDRAILS, LANGUAGE_GUARDRAILS, PERSONA_GUARDRAILS, call_llm  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 POSTS_DIR = os.path.join(ROOT, "content", "posts")
@@ -68,10 +68,12 @@ def slugify(title, date_str):
 def build_prompt(blog_post):
     return f"""{LANGUAGE_GUARDRAILS}
 
-あなたは「AI・Codex・Claude活用術」を専門にするnoteクリエイターです。
+あなたは「AI・Codex・Claude活用術」を発信するnoteクリエイターです。
 無料ブログで公開済みの以下の入門記事をベースに、有料note記事として「もっと実践的で
 具体的な深掘り版」を書いてください。単なる要約ではなく、テンプレート・チェックリスト・
 手順など、お金を払う価値のある実用的な内容にしてください。
+
+{PERSONA_GUARDRAILS}
 
 # ベースとなった無料ブログ記事
 タイトル: {blog_post.get('title', '')}
@@ -96,7 +98,7 @@ TITLE: <32文字以内、購買意欲を刺激する日本語タイトル>
 ---PAID---
 <有料部分の本文をMarkdownで。1500〜2500文字程度。具体的な手順・テンプレート・
 チェックリスト・コード例を必ず含め、無料ブログには無い実践的な情報にする。
-最後に「## まとめ」を置く>
+「## まとめ」を置いた後、PERSONA_GUARDRAILSで指定された締めの一文を書く>
 """
 
 
