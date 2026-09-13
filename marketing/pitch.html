@@ -1,0 +1,329 @@
+<title>AI自動化工房</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #f7f5ef;
+    --surface: #ffffff;
+    --surface-2: #efeade;
+    --border: #ddd6c4;
+    --text: #211d16;
+    --text-dim: #6b6355;
+    --accent: #b8592c;
+    --accent-soft: #e9c9a8;
+    --accent-ink: #ffffff;
+    --ok: #4a7c59;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14120f;
+      --surface: #1d1a15;
+      --surface-2: #262117;
+      --border: #3a3327;
+      --text: #f1ece0;
+      --text-dim: #a99f8c;
+      --accent: #e08a4f;
+      --accent-soft: #4a3521;
+      --accent-ink: #1a1208;
+      --ok: #7fb88f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14120f;
+    --surface: #1d1a15;
+    --surface-2: #262117;
+    --border: #3a3327;
+    --text: #f1ece0;
+    --text-dim: #a99f8c;
+    --accent: #e08a4f;
+    --accent-soft: #4a3521;
+    --accent-ink: #1a1208;
+    --ok: #7fb88f;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans JP", "Hiragino Sans", sans-serif;
+    line-height: 1.75;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 56px 20px 100px; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 7px; height: 7px;
+    background: var(--ok);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ok) 25%, transparent);
+  }
+
+  h1 {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 700;
+    font-size: clamp(1.7rem, 4.4vw, 2.5rem);
+    line-height: 1.3;
+    text-wrap: balance;
+    margin: 14px 0 18px;
+    letter-spacing: -0.01em;
+  }
+  h1 .accent { color: var(--accent); }
+
+  .lede {
+    font-size: 1.05rem;
+    color: var(--text-dim);
+    max-width: 58ch;
+  }
+
+  .terminal {
+    margin-top: 32px;
+    background: #1a1712;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.85rem;
+  }
+  :root:not([data-theme="dark"]) .terminal { background: #211d16; }
+  .terminal-bar {
+    display: flex; gap: 6px;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .terminal-bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.18); }
+  .terminal-body { padding: 16px 18px 20px; color: #e4dfd2; overflow-x: auto; }
+  .terminal-body .c1 { color: #8fbf8f; }
+  .terminal-body .c2 { color: var(--accent-soft); }
+  .terminal-body .cmt { color: #7d7566; }
+  .terminal-body div { white-space: pre; }
+
+  section { margin-top: 64px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .section-num {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+  h2 {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .process { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--border); }
+  .step {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step-n {
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .step h3 { margin: 0 0 4px; font-size: 1rem; font-weight: 700; }
+  .step p { margin: 0; color: var(--text-dim); font-size: 0.94rem; }
+
+  .proof {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .proof-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.94rem;
+  }
+  .proof-row:last-child { border-bottom: none; }
+  .proof-row dt { color: var(--text-dim); }
+  .proof-row dd { margin: 0; text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 0.88rem; }
+
+  .stack {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 18px;
+  }
+  .chip {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    padding: 5px 11px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-dim);
+    background: var(--surface-2);
+  }
+
+  .quote-block {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 22px 24px 24px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.88rem;
+    white-space: pre-wrap;
+    color: var(--text);
+  }
+  .copy-btn {
+    position: absolute;
+    top: 14px; right: 14px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: none;
+    border-radius: 6px;
+    padding: 6px 11px;
+    cursor: pointer;
+  }
+  .copy-btn:focus-visible, a:focus-visible, .copy-btn:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .copy-btn.copied { background: var(--ok); }
+
+  footer {
+    margin-top: 72px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    font-family: "IBM Plex Mono", monospace;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .step, .proof, .quote-block { transition: transform 0.15s ease; }
+  }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Available for work</p>
+  <h1>AIで、<span class="accent">御社の定型業務</span>を無人化します。</h1>
+  <p class="lede">
+    Claude Code / Codex を使い、記事作成・データ整形・SNS告知・レポート作成などの繰り返し作業を、
+    毎日自動で回るパイプラインに組み替えます。実際に自分で運用している自動化基盤を、そのまま実績としてお見せします。
+  </p>
+
+  <div class="terminal">
+    <div class="terminal-bar"><span></span><span></span><span></span></div>
+    <div class="terminal-body">
+<div><span class="cmt"># 実際に稼働中の自動化パイプライン(抜粋)</span></div>
+<div><span class="c1">$</span> python3 scripts/generate_post.py   <span class="cmt"># Claude APIで記事生成</span></div>
+<div><span class="c2">生成完了: content/posts/2026-09-13-....md</span></div>
+<div><span class="c1">$</span> python3 scripts/build_site.py     <span class="cmt"># 静的サイトへビルド</span></div>
+<div><span class="c2">ビルド完了: 12件の記事 -> docs/</span></div>
+<div><span class="c1">$</span> git push && python3 scripts/post_to_x.py</div>
+<div><span class="c2">投稿完了</span> <span class="cmt"># 公式APIでXに告知</span></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head"><span class="section-num">01</span><h2>できること</h2></div>
+    <div class="process">
+      <div class="step">
+        <div class="step-n">01</div>
+        <div><h3>コンテンツ自動生成 → 公開</h3><p>ブログ記事・商品説明・レポートをAIで生成し、静的サイトやCMSへ自動公開するパイプラインを構築します。</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">02</div>
+        <div><h3>定型業務の自動化</h3><p>Excel/PDF/メールの集計・転記・返信文面作成など、手作業のルーティンをスクリプト化します。</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <div><h3>公式APIでの告知連携</h3><p>X等への自動告知は必ず公式APIの範囲内で実装し、アカウント凍結のリスクを避けます。</p></div>
+      </div>
+      <div class="step">
+        <div class="step-n">04</div>
+        <div><h3>スケジュール運用</h3><p>macOS launchd / cron / GitHub Actionsで「毎日決まった時間に無人実行」まで組んで納品します。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">02</span><h2>実績: 自動更新ブログの構築</h2></div>
+    <div class="proof">
+      <dl style="margin:0;">
+        <div class="proof-row"><dt>構成</dt><dd>Claude API → Markdown → 静的HTML → GitHub Pages</dd></div>
+        <div class="proof-row"><dt>更新頻度</dt><dd>毎日 08:00 自動(launchd)</dd></div>
+        <div class="proof-row"><dt>人の作業</dt><dd>週1回の軽いレビューのみ</dd></div>
+        <div class="proof-row"><dt>SNS連携</dt><dd>X公式API経由で新着告知</dd></div>
+      </dl>
+      <div class="stack">
+        <span class="chip">Claude API</span>
+        <span class="chip">Python 3</span>
+        <span class="chip">GitHub Pages</span>
+        <span class="chip">launchd</span>
+        <span class="chip">X API v2</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">03</span><h2>ご依頼時に使える提案文</h2></div>
+    <p style="color:var(--text-dim); margin-top:-6px;">クラウドワークス/ランサーズの提案欄にそのまま貼り付けられる文面です。</p>
+    <div class="quote-block" id="proposal">
+<button class="copy-btn" id="copyBtn" type="button">コピー</button>はじめまして。AI(Claude Code / Codex)を使った業務自動化を専門にしています。
+
+現在、Claude APIで記事を自動生成し、静的サイトとして毎日自動更新・公開するパイプラインを自分自身で運用しています(URLは実績としてお見せできます)。
+
+御社の「〇〇作業」についても、
+・作業内容のヒアリング
+・自動化スクリプトの設計・実装
+・毎日/毎週など決まったタイミングでの無人実行
+・簡単な運用マニュアルの納品
+まで一貫して対応可能です。
+
+まずは現状の作業フローを教えていただければ、自動化できる範囲とおおよその工数をお見積もりします。よろしくお願いいたします。
+    </div>
+  </section>
+
+  <footer>
+    <span>AI自動化工房 — Claude Code / Codex による業務自動化</span>
+    <a href="#proposal">提案文を見る ↑</a>
+  </footer>
+</div>
+
+<script>
+  const btn = document.getElementById('copyBtn');
+  const block = document.getElementById('proposal');
+  btn.addEventListener('click', async () => {
+    const text = block.innerText.replace(/^コピー\s*/, '').trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = 'コピー済み';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'コピー'; btn.classList.remove('copied'); }, 1800);
+    } catch (e) {
+      btn.textContent = '選択してコピー';
+    }
+  });
+</script>
