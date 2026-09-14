@@ -58,27 +58,44 @@ def blog_posts_without_note_draft():
     return candidates
 
 
+_STRAY_MARKER_RE = re.compile(r"^[\-*_#]{0,6}\s*(FREE|PAID|TAGS)?\s*[\-*_#]{0,6}$")
+
+
+def strip_stray_dashes(s):
+    lines = s.splitlines()
+    while lines and (lines[0].strip() == "" or _STRAY_MARKER_RE.match(lines[0].strip())):
+        lines = lines[1:]
+    while lines and (lines[-1].strip() == "" or _STRAY_MARKER_RE.match(lines[-1].strip())):
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
+
+
+_SECTION_MARKER_RE = re.compile(r"^[\-*_#\s]*\b(FREE|PAID|TAGS)\b[\-*_#:\s]*$", re.MULTILINE)
+
+
 def parse_note_output(text):
     if "TITLE:" not in text:
-        return None, None, None
+        return None, None, None, None
 
-    title_part, _, rest = text.partition("TITLE:")
-    title = rest.splitlines()[0].strip() if rest else ""
-    body = rest[len(title):].strip() if rest else ""
-    # 最初の改行より後ろを本文として扱う(念のためtitle行を取り除く)
-    body = "\n".join(rest.splitlines()[1:]).strip()
+    _, _, rest = text.partition("TITLE:")
+    rest_lines = rest.splitlines()
+    title = rest_lines[0].strip() if rest_lines else ""
+    body = "\n".join(rest_lines[1:])
 
-    if "---FREE---" in body and "---PAID---" in body:
-        free_part, paid_part = body.split("---FREE---", 1)[1].split("---PAID---", 1)
-        return title, free_part.strip(), paid_part.strip()
+    # "---FREE---" 等の区切りマーカーの表記ゆれ(ダッシュの数・改行位置など)を
+    # 吸収するため、マーカー行の位置で区切って各セクションを取り出す
+    matches = list(_SECTION_MARKER_RE.finditer(body))
+    sections = {}
+    for i, m in enumerate(matches):
+        key = m.group(1)
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(body)
+        sections[key] = strip_stray_dashes(body[start:end])
 
-    # フォールバック: 素の "---" 区切りが2箇所以上あれば、最初の区切りまでを無料部分、
-    # それ以降を有料部分として扱う
-    parts = [p.strip() for p in re.split(r"^-{3,}$", body, flags=re.MULTILINE) if p.strip()]
-    if len(parts) >= 2:
-        return title, parts[0], "\n\n".join(parts[1:])
+    if "FREE" in sections and "PAID" in sections:
+        return title, sections["FREE"], sections["PAID"], sections.get("TAGS", "")
 
-    return None, None, None
+    return None, None, None, None
 
 
 def slugify(title, date_str):
@@ -112,16 +129,28 @@ def build_prompt(blog_post):
 - 具体的なコマンド例を書く場合は `claude "プロンプト"` のような一般的なCLI呼び出しの
   形にとどめ、細かいオプション名や架空の関数名を断定的に書かない
 - 自信が持てない技術的詳細は、具体的なコマンド例ではなく「手順」や「考え方」として説明する
+- 【絶対禁止】`curl ... | bash` のような、URLからインストールスクリプトを取得して
+  実行するコマンドを一切書かない(実在しないURLを捏造する原因になり、読者に危険な
+  操作を促すことにもなる)。インストール方法を書く必要がある場合は、具体的なURLや
+  コマンドを書かず「公式サイトの案内に従ってインストールしてください」とだけ書く
 
 # 出力形式(厳守・この形式以外の文章を加えない)
-TITLE: <32文字以内、購買意欲を刺激する日本語タイトル>
+TITLE: <32文字以内。既存noteのタイトルの型を参考にする(例:「知らないと損⁉️〇〇vs〇〇
+2026年〇〇はどっちだ。《徹底比較》」「〇〇したら、△△になった──最後にたどり着く
+真実」のような、比較・逆説・煽り疑問形のいずれかのパターンを使う)
 ---FREE---
-<購入を迷っている読者向けの無料試し読み部分。3〜5文。何が得られるか具体的に予告し、
-最後は続きが気になる一文で終える>
+<無料公開部分。1000〜1500文字程度、複数段落。導入の語りかけ(または「結論から言う。」
+のような切り込み)、なぜ今このテーマなのかの背景、「この記事を読むとわかること」の
+具体的な予告(箇条書き可)を含める。最後は有料部分の中身を軽く予告して
+「続きは、有料編で。」のように自然に締める>
 ---PAID---
-<有料部分の本文をMarkdownで。1500〜2500文字程度。具体的な手順・テンプレート・
-チェックリスト・コード例を必ず含め、無料ブログには無い実践的な情報にする。
-「## まとめ」を置いた後、PERSONA_GUARDRAILSで指定された締めの一文を書く>
+<有料部分の本文をMarkdownで。2500〜4000文字程度、無料ブログには無い深さにする。
+具体的な手順・テンプレート・チェックリスト・コード例を必ず含める。「## まとめ」を
+最後に置く>
+---TAGS---
+<半角スペース区切りのハッシュタグ8〜12個。#AI #ClaudeCode #Codex #自動化 #副業
+#資産形成 #新NISA #不労所得 などから今回のテーマに合うものを選び、既存アカウントの
+タグの雰囲気(投資・資産形成・FIRE関連タグを必ず数個混ぜる)に合わせる>
 """
 
 
@@ -135,7 +164,7 @@ def main():
     prompt = build_prompt(blog_post)
     text = call_llm(prompt)
 
-    title, free_teaser, paid_body = parse_note_output(text)
+    title, free_teaser, paid_body, tags = parse_note_output(text)
     if title is None:
         print("ERROR: 期待した出力形式ではありません:\n" + text[:500], file=sys.stderr)
         sys.exit(1)
@@ -155,14 +184,17 @@ def main():
         f.write("## (無料公開部分)\n\n")
         f.write(free_teaser + "\n\n")
         f.write("## (ここから有料)\n\n")
-        f.write(paid_body + "\n")
+        f.write(paid_body + "\n\n")
+        if tags:
+            f.write("## (タグ)\n\n")
+            f.write(tags + "\n")
 
-    render_preview(slug, title, free_teaser, paid_body, DEFAULT_PRICE)
+    render_preview(slug, title, free_teaser, paid_body, tags, DEFAULT_PRICE)
     print(f"生成完了: {out_path}")
     print(f"プレビュー: docs_note_preview/{slug}.html をブラウザで開いてコピペしてください")
 
 
-def render_preview(slug, title, free_teaser, paid_body, price):
+def render_preview(slug, title, free_teaser, paid_body, tags, price):
     import markdown
 
     free_html = markdown.markdown(free_teaser)
@@ -177,6 +209,7 @@ def render_preview(slug, title, free_teaser, paid_body, price):
   .price {{ display:inline-block; background:#41c9b4; color:#fff; padding:4px 12px; border-radius:6px; font-size:0.9rem; }}
   .paywall {{ margin: 32px 0; padding: 14px; background:#fff6de; border:1px dashed #e0a800; border-radius:8px; font-size:0.9rem; }}
   .copy-hint {{ color:#888; font-size:0.85rem; }}
+  .tags {{ margin-top: 24px; color:#2b7de9; font-size:0.9rem; }}
   pre {{ background:#1e1e2e; color:#eee; padding:10px; border-radius:6px; overflow-x:auto; }}
 </style></head>
 <body>
@@ -186,6 +219,7 @@ def render_preview(slug, title, free_teaser, paid_body, price):
 {free_html}
 <div class="paywall">▼ ここでnoteの「続きは有料」区切りを入れる ▼</div>
 {paid_html}
+<p class="tags">{tags}</p>
 </body></html>
 """
     os.makedirs(NOTE_PREVIEW_DIR, exist_ok=True)
