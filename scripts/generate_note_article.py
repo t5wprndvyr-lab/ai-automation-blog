@@ -19,7 +19,7 @@ from env_loader import load_env
 
 load_env()
 
-from llm import FACT_GUARDRAILS, LANGUAGE_GUARDRAILS, PERSONA_GUARDRAILS, call_llm  # noqa: E402
+from llm import FACT_GUARDRAILS, LANGUAGE_GUARDRAILS, NOTE_PERSONA_GUARDRAILS, call_llm  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 POSTS_DIR = os.path.join(ROOT, "content", "posts")
@@ -58,6 +58,29 @@ def blog_posts_without_note_draft():
     return candidates
 
 
+def parse_note_output(text):
+    if "TITLE:" not in text:
+        return None, None, None
+
+    title_part, _, rest = text.partition("TITLE:")
+    title = rest.splitlines()[0].strip() if rest else ""
+    body = rest[len(title):].strip() if rest else ""
+    # 最初の改行より後ろを本文として扱う(念のためtitle行を取り除く)
+    body = "\n".join(rest.splitlines()[1:]).strip()
+
+    if "---FREE---" in body and "---PAID---" in body:
+        free_part, paid_part = body.split("---FREE---", 1)[1].split("---PAID---", 1)
+        return title, free_part.strip(), paid_part.strip()
+
+    # フォールバック: 素の "---" 区切りが2箇所以上あれば、最初の区切りまでを無料部分、
+    # それ以降を有料部分として扱う
+    parts = [p.strip() for p in re.split(r"^-{3,}$", body, flags=re.MULTILINE) if p.strip()]
+    if len(parts) >= 2:
+        return title, parts[0], "\n\n".join(parts[1:])
+
+    return None, None, None
+
+
 def slugify(title, date_str):
     ascii_part = re.sub(r"[^a-zA-Z0-9]+", "-", title).strip("-").lower()
     if not ascii_part:
@@ -73,7 +96,7 @@ def build_prompt(blog_post):
 具体的な深掘り版」を書いてください。単なる要約ではなく、テンプレート・チェックリスト・
 手順など、お金を払う価値のある実用的な内容にしてください。
 
-{PERSONA_GUARDRAILS}
+{NOTE_PERSONA_GUARDRAILS}
 
 # ベースとなった無料ブログ記事
 タイトル: {blog_post.get('title', '')}
@@ -112,16 +135,10 @@ def main():
     prompt = build_prompt(blog_post)
     text = call_llm(prompt)
 
-    if "TITLE:" not in text or "---FREE---" not in text or "---PAID---" not in text:
+    title, free_teaser, paid_body = parse_note_output(text)
+    if title is None:
         print("ERROR: 期待した出力形式ではありません:\n" + text[:500], file=sys.stderr)
         sys.exit(1)
-
-    title_part, rest = text.split("---FREE---", 1)
-    free_part, paid_part = rest.split("---PAID---", 1)
-
-    title = title_part.split("TITLE:", 1)[1].strip().splitlines()[0].strip()
-    free_teaser = free_part.strip()
-    paid_body = paid_part.strip()
 
     date_str = datetime.date.today().isoformat()
     slug = slugify(title, date_str)
