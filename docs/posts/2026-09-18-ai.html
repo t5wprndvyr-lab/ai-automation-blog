@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI自動化で定時で帰って、自動化で稼ぐ！ | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="会社員の副業としてAI自動化を利用する方法を解説。Claude CodeとCodexの使い分けと、実用的なテクニックを紹介します。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AI自動化で定時で帰って、自動化で稼ぐ！</h1><div class='meta'>2026-09-18</div><h2>はじめに</h2>
+<p>AI自動化とは、作業を自動化することで効率化を図る技術です。会社員が副業で取り組むなら、平日は定時後の2時間しか触れないので、週末の自由時間を活用するのがおすすめです。正直に言うと、まずはClaude CodeとCodexの違いを理解することが重要です。</p>
+<h2>Claude CodeとCodexの使い分け</h2>
+<h3>Claude Code</h3>
+<p>Claude Codeは Anthropic 社が開発したAIコーディングツールです。その特徴は、自然言語による指示でコードを生成できる点です。ただし、Claude Codeはまだ実用化段階にあり、一部の機能に制限があります。例えば、特定のライブラリのサポートが不完全な場合もあります。</p>
+<h3>Codex</h3>
+<p>Codexは OpenAI が開発したAIコーディングツールです。こちらはClaude Codeよりも機能が充実しており、多くのライブラリのサポートが可能です。ただし、プライバシーへの配慮から、一部の指示に対しては応答しないことがあります。</p>
+<h3>使い分け</h3>
+<p>Claude CodeとCodexの使い分けは、具体的なプロジェクトによって変わります。例えば、プライバシーに気を使う必要がないプロジェクトならCodexが適していますが、プライバシーが気になるプロジェクトならClaude Codeを検討します。</p>
+<h2>具体的な手順</h2>
+<h3>1. プロンプト設計のコツ</h3>
+<p>Claude CodeやCodexを効果的に利用するためには、明確な指示を伝えるプロンプトが必要です。具体的な指示を細かく設定することで、AIが正しく理解し、期待通りの結果を出力します。</p>
+<h3>2. サンプルコードと実用的な例</h3>
+<h4>例1: ファイルのバックアップ自動化</h4>
+<pre><code class="language-bash"># ファイルのバックアップを自動化
+#!/bin/bash
+date=$(date +%Y%m%d)
+tar -czvf backup_$date.tar.gz /path/to/important/files
+</code></pre>
+<h4>例2: 電子メールの自動送信</h4>
+<pre><code class="language-python">import smtplib
+from email.mime.text import MIMEText
+def send_email(subject, body, to_addr):
+    msg = MIMEText(body)
+    msg['Subject'] = subject
+    msg['From'] = 'your_email@example.com'
+    msg['To'] = to_addr
+    with smtplib.SMTP('smtp.example.com', 587) as smtp:
+        smtp.starttls()
+        smtp.login('your_email@example.com', 'your_password')
+        smtp.sendmail('your_email@example.com', to_addr, msg.as_string())
+# 送信例
+send_email('Important Update', 'Check the attached document.', 'recipient@example.com')
+</code></pre>
+<h3>3. チェックリスト</h3>
+<ul>
+<li>プロンプトは明確で具体的であること</li>
+<li>必要なライブラリは事前にインストールすること</li>
+<li>プロプライエタリーな情報は適切に管理すること</li>
+</ul>
+<h2>まとめ</h2>
+<p>結論から言うと、Claude CodeとCodexは別々の会社の別々の製品であり、適切な状況で使い分けることが重要です。正直に言うと、定時で帰って、自動化で稼ぐ。&gt; 自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
