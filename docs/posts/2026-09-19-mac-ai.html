@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MacでのAI開発環境構築 | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="Mac向けAI開発環境の構築手順とTipsを解説。Claude CodeとCodexの使い分けも詳しく紹介！">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>MacでのAI開発環境構築</h1><div class='meta'>2026-09-19</div><h2>はじめに</h2>
+<p>平日は定時後の2時間しか触れないので、週末と夜遅くにAI自動化に取り組んでいます。この記事ではMac向けのAI開発環境の構築方法を説明します。</p>
+<h2>Macの準備</h2>
+<p>まず、Macの準備から。公式サイトの案内に従ってインストールしてください。Pythonとgitは必須ですので、それらを最新版にアップデートします。その後、Homebrewというパッケージマネージャーをインストールしましょう。<code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code> というコマンドを実行することでインストールできます。ただし、実在しないURLを使うのを避けるため、公式サイトに従ってください。</p>
+<h2>Pythonと必要なライブラリ</h2>
+<p>Pythonの環境を整えるために、<code>pip</code> をアップデートします。<code>pip install --upgrade pip</code> でアップデートします。次に、AI開発で頻繁に使うライブラリをインストールします。<code>pip install numpy pandas scikit-learn</code> などです。これらはClaude CodeやCodexを使う上で必要なライブラリです。</p>
+<h2>Claude CodeとCodexの使い分け</h2>
+<p>結論から言うと、Claude CodeはAPIベースのツールで、特定のタスクに対してプロンプトを入力することで結果を得ることができます。一方、Codexはコード生成ツールで、自然言語の指示に基づいてコードを生成します。正直に言うと、Claude Codeは具体的な問題解決に向いている一方、Codexは抽象的なコード生成に向いていると言えるでしょう。</p>
+<h2>実際の使い方</h2>
+<p>例えば、クラウドサービスのデータ分析を行う場合、Claude Codeは具体的なAPI操作をプロンプトで指定できます。一方、Codexはより抽象的な指示で複雑なデータ処理のコードを生成できます。そのため、具体的なタスクにはClaude Code、抽象的なタスクにはCodexを使うのが良いでしょう。</p>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。Claude CodeとCodexの使い分けを理解することで、効率的にAI開発を進めることができます。&gt; 自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
