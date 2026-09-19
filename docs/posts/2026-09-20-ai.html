@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI自動化におけるセキュリティと注意点 | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="定時で帰るためにAI自動化に取り組む会社員のためのセキュリティガイド。Claude CodeとCodexの違いも解説。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AI自動化におけるセキュリティと注意点</h1><div class='meta'>2026-09-20</div><h2>はじめに</h2>
+<p>会社員としての私たちは、定時で帰るためにAI自動化に取り組むことを検討しています。しかし、自動化スクリプトを作成する際のセキュリティ面には気をつけるべき点がたくさんあります。本稿では、会社にバレない範囲で、AI自動化に取り組む際の注意点を共有します。</p>
+<h2>セキュリティの基本</h2>
+<p>AI自動化を始めると、まず最初にセキュリティが重要です。スクリプトは機密情報にアクセスする可能性があるため、その管理は慎重に行いましょう。秘密鍵やAPIキーは、スクリプト内の安全な場所に保存し、その場所にはアクセスできる人物に限ることです。</p>
+<h2>ユーザー認証とアクセス管理</h2>
+<p>会社にバレない範囲で、ユーザー認証とアクセス管理は不可欠です。Claude CodeやCodexなどのツールを使用する際は、APIの認証情報を安全に管理します。特定のユーザーのみが特定のスクリプトにアクセスできるようにし、ログインが必要な場合でもセキュアな認証プロセスを用いましょう。</p>
+<h2>データの暗号化</h2>
+<p>データの暗号化はセキュリティ上非常に重要です。機密データは適切な暗号化を適用し、スクリプトがデータにアクセスする際も安全を確保します。データを保管する際は、HTTPSを使用し、通信にあたってもデータが安全に伝送されます。</p>
+<h2>サンプルコードとチェックリスト</h2>
+<p>以下に、セキュリティに注意したAI自動化スクリプトのサンプルコードを示します。また、実行前に確認すべきチェックリストも一同に掲載します。</p>
+<pre><code class="language-python">import os
+from cryptography.fernet import Fernet
+# ここに秘密鍵を生成または読み込み
+key = Fernet.generate_key()
+cipher_suite = Fernet(key)
+# ファイルを暗号化
+with open(&quot;secret.txt&quot;, &quot;rb&quot;) as infile:
+    encrypted_data = cipher_suite.encrypt(infile.read())
+with open(&quot;secret.txt.enc&quot;, &quot;wb&quot;) as outfile:
+    outfile.write(encrypted_data)
+# 認証情報の管理
+def check_credentials(username, password):
+    # 認証情報のチェックロジック
+    pass
+# チェックリスト
+- APIキーを安全な場所に保存する
+- ユーザー認証を実装する
+- データを暗号化する
+- HTTPSを使用して通信を行う
+正直に言うと、これらはAI自動化を始める上で最初に押さえておくべき重要な点です。定時で帰るためのAI自動化も安全に行いましょう。
+</code></pre>
+<h2>まとめ</h2>
+<p>定時で帰るためには、AI自動化が不可欠ですが、その際のセキュリティ面にも注意が必要です。Claude CodeやCodexを使用する際は、APIキーの管理やデータの暗号化など、具体的な手順に従ってセキュリティ対策を行いましょう。
+定時で帰って、自動化で稼ぐ。</p>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
