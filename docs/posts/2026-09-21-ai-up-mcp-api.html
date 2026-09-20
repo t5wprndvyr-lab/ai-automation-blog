@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIツール連携で生産性UP！MCP・API連携の実践テクニック | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="AI自動化のプロフェッショナルが教える、MCPとCodexの連携術。定時退社を実現させよう！">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AIツール連携で生産性UP！MCP・API連携の実践テクニック</h1><div class='meta'>2026-09-21</div><p>平日は定時後の2時間しか触れないので、副業でのAI自動化に注力しています。</p>
+<h2>背景</h2>
+<p>AI自動化を導入する際、各ツール間の連携は極めて重要です。本記事では、Anthropic社のClaude CodeとCodexの連携方法について解説します。Claude Codeは自動生成可能なコードを提供し、Codexは自然言語によるコード生成に優れています。これらツールをどう連携させて効率的にプロジェクトを推進できるか、詳しくお伝えします。</p>
+<h2>定時退社を実現するための連携テクニック</h2>
+<h3>1. MCP（Model Configuration Protocol）の活用</h3>
+<p>まず、MCPを利用してClaude CodeとCodexの連携を開始しましょう。MCPは、AIモデル間の連携を可能にするAPI仕様です。</p>
+<pre><code class="language-bash"># MCPコマンドの実行例
+mcp connect ClaudeCode Codex
+</code></pre>
+<p>このコマンドを実行することで、Claude CodeとCodexの連携を有効にします。</p>
+<h3>2. API連携による自動化</h3>
+<p>次に、API連携を利用して自動化プロセスを構築します。以下に具体的な手順を示します。</p>
+<pre><code class="language-python"># Pythonスクリプトの例
+import requests
+def fetch_data_from_api(api_url):
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+# API URLを設定
+api_url = &quot;https://api.example.com/data&quot;
+# APIからデータを取得
+data = fetch_data_from_api(api_url)
+if data:
+    # ここにデータ処理のコードを追加
+    pass
+</code></pre>
+<p>このPythonスクリプトは、指定されたAPIからデータを取得し、処理する一連の手順を自動化します。</p>
+<h3>3. チェックリストの重要性</h3>
+<p>以下に、Claude CodeとCodexの連携を成功させるために必要なチェックリストを示します。
+- MCPコマンドが正しく実行されているか確認
+- APIエンドポイントが正しく設定されているか確認
+- エラーハンドリングが正しく実装されているか確認</p>
+<h2>まとめ</h2>
+<p>正直に言うと、Claude CodeとCodexを効率的に連携させるためには、MCPの利用とAPI連携の適切な設定が不可欠です。これらの手順を踏むことで、AI自動化による生産性向上を実現できます。定時で帰って、自動化で稼ぐ。&gt; 自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
