@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI自動化で定時で帰って、自動化で稼ぐ！ | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="会社員の副業としてAI自動化を活用する方法と注意点。Claude CodeとCodexの違いも解説！">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AI自動化で定時で帰って、自動化で稼ぐ！</h1><div class='meta'>2026-09-22</div><h2>はじめに</h2>
+<p>皆さん、こんにちは。AI自動化ラボの中の人です。本業は会社員なのですが、平日夜と週末の時間を使って副業でAI自動化に取り組んでいます。同じ会社員で副業勢の先輩として、自分の体験からアドバイスをしたいと思います。</p>
+<h2>AI自動化の利点</h2>
+<p>AI自動化は日々の作業を効率化し、自由な時間を増やす有効な手段です。例えば、メールの分類や予定の作成、資料の作成などをAIに任せることで、時間を使う作業を自動化できます。これにより、平日は定時後の2時間しか触れないので、AIを使って作業を自動化することで、定時で帰宅し、自動化で稼ぐことができます。</p>
+<h2>AI自動化の手順</h2>
+<p>では、具体的にどのようにAI自動化を行うか見ていきましょう。まず、AI自動化のためのツール選びから始めます。ここでは、Anthropic社が提供する「Claude Code」と、OpenAIが提供する「Codex」を例に挙げますが、これらは別々の会社の製品であり、混同しないように注意しましょう。</p>
+<h3>Claude CodeとCodexの使い分け</h3>
+<p><strong>Claude Code</strong>は、PythonやJavaScriptなどの言語でコードを生成するためのツールです。一方、<strong>Codex</strong>は、自然言語処理を用いてプログラミングコードを生成するAIです。両者とも強力なツールですが、具体的なプロジェクトに適したツールを選ぶ必要があります。</p>
+<h3>実践的な例</h3>
+<p>例えば、メールの分類作業を自動化するためには、Claude Codeを使用すると良いでしょう。まず、メールの内容を分析し、重要度やカテゴリを自動的に分類するコードを書きます。このコードはPythonで書くことができます。</p>
+<pre><code class="language-python">import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+# メールデータの準備
+emails = pd.read_csv('emails.csv')
+vectorizer = TfidfVectorizer(stop_words='english')
+X = vectorizer.fit_transform(emails['content'])
+y = emails['category']
+# モデルの学習
+model = MultinomialNB()
+model.fit(X, y)
+# メールの分類
+def classify_email(email_content):
+    vectorized_email = vectorizer.transform([email_content])
+    category = model.predict(vectorized_email)[0]
+    return category
+</code></pre>
+<h3>実装手順</h3>
+<ol>
+<li><strong>メールデータの準備</strong>: メールの内容をCSVファイルなどに保存します。</li>
+<li><strong>データの前処理</strong>: テキストデータを処理し、特徴量に変換します。</li>
+<li><strong>モデルの学習</strong>: データを使って機械学習モデルを訓練します。</li>
+<li><strong>分類</strong>: 新しいメールの内容を入力し、カテゴリを予測します。</li>
+</ol>
+<h2>結論から言うと、Claude CodeとCodexの使い分けはプロジェクトの特性に応じて適切に選択することが重要です。AI自動化を始めるには、まず自分自身のニーズを理解し、適切なツールを選ぶことが大切です。</h2>
+<p>定時で帰って、自動化で稼ぐ。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
