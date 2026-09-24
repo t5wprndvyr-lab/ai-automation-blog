@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI自動化で定時で帰って、自動化で稼ぐ！ | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="会社員の副業としてAI自動化を始める方法を解説。Claude CodeとCodexの違いと実用的な活用術を伝授します。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AI自動化で定時で帰って、自動化で稼ぐ！</h1><div class='meta'>2026-09-25</div><h2>会社員の副業AI自動化入門</h2>
+<p>平日は定時後の2時間しか触れないので、AI自動化は週末の副業に適している。正直に言うと、最初は戸惑ったが、結果的に自分の時間を増やす魔法のツールになった。結論から言うと、Claude CodeとCodexを使い分けるのは難しく、どちらもAIコーディングのための有力なツールだ。</p>
+<h2>クラウドCodeとCodexの違い</h2>
+<p>Claude CodeはAnthropic社が開発したAIコーディングツール。CodexはOpenAIが開発したAIコーディングツール。両者とも強力なAIツールだが、具体的な使い分けは難しい。正直に言うと、どちらも試してみて、自分が何を重視するかで選択するべきだ。</p>
+<h2>自動化の具体的な事例</h2>
+<p>例えば、毎日同じスクリプトを書く作業は自動化できる。まずはPython標準ライブラリやbashコマンドを使って、定期的なタスクを自動化する方法を考える。例えば、メールの受信とメール内の特定キーワード検索を自動化すれば、時間節約になる。</p>
+<pre><code class="language-python">import os
+import smtplib
+from email.message import EmailMessage
+def check_email():
+    # メールサーバに接続
+    with smtplib.SMTP('smtp.example.com', 587) as smtp:
+        smtp.starttls()
+        smtp.login('user@example.com', 'password')
+        # メール受信
+        resp, data = smtp.list()
+        emails = data.decode('utf-8')
+        email_list = emails.split('\n')
+        for email in email_list:
+            if 'keyword' in email:
+                # メール詳細取得
+                resp, data = smtp.retr(email.split()[2])
+                msg_data = data.decode('utf-8')
+                msg = EmailMessage()
+                msg.set_payload(msg_data)
+                # メール内の特定キーワード検索
+                if 'search_word' in msg.get_payload():
+                    print('キーワード検索結果:', msg.get_payload())
+check_email()
+</code></pre>
+<h2>定時で帰って、自動化で稼ぐ。</h2>
+<p>定時で帰って、自動化で稼ぐ。これは私の座右の銘だ。Claude CodeとCodexはどちらも強力なツールで、適切に活用すれば効率化につながる。正直に言うと、まずは両方試してみることをお勧めする。必要ない。必要ありません。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
