@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プロンプト設計のコツと Claude Code と Codex の使い分け | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="AI自動化の秘訣を解説。Claude CodeとCodexの違いと、効果的なプロンプト設計の方法を明らかにします。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>プロンプト設計のコツと Claude Code と Codex の使い分け</h1><div class='meta'>2026-09-26</div><h2>会社員×副業の僕が学んだAI自動化の真実</h2>
+<p>定時退社後、副業でAI自動化に取り組む会社員の僕から、Claude CodeとCodexの使い分けについて正直に語ります。普段は会社では触れられにくい時間を使って、自分なりのAI自動化を模索しています。正直に言うと、これは僕の経験から学んだ教訓です。</p>
+<h2>Claude CodeとCodex、それぞれの特徴と使い分け</h2>
+<h3>Claude Codeの特徴</h3>
+<p>Claude CodeはAnthropic社が開発したAIコーディングツールです。主な特徴は以下の通りです：
+- <strong>自然言語で要件を説明できる</strong>: 自然言語で要件を説明すれば、自動的にコードが生成されます。
+- <strong>多様なプログラミング言語対応</strong>: Python、JavaScript、TypeScriptなど、多様なプログラミング言語に対応しています。
+- <strong>初期設定が比較的簡単</strong>: 公式サイトの案内に従ってインストールすれば、比較的簡単に使用できるようになります。</p>
+<h3>Codexの特徴</h3>
+<p>CodexはOpenAIが開発したAIコーディングツールです。Codexの特徴は以下の通りです：
+- <strong>Pythonのサポートが充実</strong>: Python向けのAPIが豊富に用意されており、Python開発者にとっては使いやすいです。
+- <strong>既存のコードを改良できる</strong>: 既存のコードを参考にすることで、より高度な自動化が可能になります。
+- <strong>API経由での利用</strong>: 通常はAPI経由で利用し、Pythonスクリプトから直接呼ぶことができます。</p>
+<h2>プロンプト設計のコツ</h2>
+<h3>1. 明確な目的設定</h3>
+<p>まず、自分が何を自動化したいのかを明確にすることが重要です。たとえば、毎日同じ作業を手作業で行っている場合、それを自動化したいという具体的な目標を設定します。</p>
+<h3>2. 常に具体性を保つ</h3>
+<p>プロンプトの具体性が非常に重要です。抽象的な言葉遣いではなく、具体的なタスクや要件を伝えることが求められます。たとえば、「顧客リストをExcelで更新する」ではなく、「顧客リストをCSV形式で取得し、Excelにインポートする」などと具体的に説明します。</p>
+<h3>3. 仮説的なプロンプトを試す</h3>
+<p>初期に仮説的なプロンプトを試してみることが重要です。例えば、「Pythonで顧客リストをExcelにインポートするコードを生成してください」というプロンプトを投げてみます。具体的な結果を得られるため、次回のプロンプト設計に活かすことができます。</p>
+<h3>4. 複数のプロンプトを試す</h3>
+<p>単一のプロンプトだけではなく、複数のプロンプトを試してみることで、最適な結果を得ることができます。異なる表現や要件の組み合わせでプロンプトを変えることで、より効果的な結果を得ることができます。</p>
+<h2>まとめ</h2>
+<p>正直に言うと、Claude CodeとCodexの使い分けは、それぞれの特徴を理解してから、具体的なタスクに応じて使い分けることが重要です。Claude Codeは自然言語での説明が得意で、CodexはPythonのサポートが充実しています。プロンプト設計のコツを把握することで、効果的な自動化を実現できます。
+定時で帰って、自動化で稼ぐ。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
