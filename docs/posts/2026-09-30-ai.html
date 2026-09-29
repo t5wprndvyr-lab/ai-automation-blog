@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI自動化におけるセキュリティと注意点 | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="AI自動化を始める前に、重要となるセキュリティ対策と注意点を解説します。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AI自動化におけるセキュリティと注意点</h1><div class='meta'>2026-09-30</div><h2>定時で帰って、自動化で稼ぐ！</h2>
+<p>平日は定時後の2時間しか触れないので、副業でのAI自動化は限られた時間での取り組みを余儀なくされています。しかし、その限られた時間の中で効率的に自動化を進めることで、成果は大きく変わります。</p>
+<h2>AI自動化のセキュリティリスク</h2>
+<p>AI自動化を始める上で、まず最初に考慮すべきはセキュリティです。AI自動化はデータを大量に扱います。そのデータは機密性があり、誤った扱いでは重大なリスクを伴います。</p>
+<h3>1. データの保護</h3>
+<p>AIプロジェクトに関連する全てのデータは、適切に暗号化し、安全なストレージに保存することが重要です。また、アクセス権限は厳密に管理し、必要最小限のアクセス権限を設定することが推奨されます。</p>
+<h3>2. APIのセキュリティ</h3>
+<p>AI自動化では、APIの利用は避けて通れません。しかし、APIの利用には慎重さが求められます。APIの秘密キーや認証情報は、暗号化された環境変数に保存し、コード内には直接記述しないことが望ましいです。</p>
+<h3>3. ログの管理</h3>
+<p>ログ管理はセキュリティ対策の重要な部分です。ログは攻撃者の行動を解析するための重要な情報源となります。ログは適切な期間保存され、必要であれば削除されるべきです。</p>
+<h2>セキュリティ対策の一例</h2>
+<p>以下に具体的なセキュリティ対策の一例を示します。</p>
+<pre><code class="language-bash"># ログの有効期限を設定する
+sudo logrotate -f /etc/logrotate.conf
+# ログファイルを圧縮して削除
+find /var/log/ -name &quot;*.log&quot; -mtime +30 -exec gzip {} \; -exec rm {} \;
+</code></pre>
+<p>これらの手順を踏むことで、セキュリティリスクを最小限に抑えることができます。</p>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。では、その最後の一文を強調しておきましょう。
+定時で帰って、自動化で稼ぐ。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
