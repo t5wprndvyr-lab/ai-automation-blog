@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MacでのAI開発環境構築 | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="AI自動化に挑戦する会社員の視点で、Mac向けAI開発環境の構築方法を詳しく解説します。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>MacでのAI開発環境構築</h1><div class='meta'>2026-10-13</div><h2>はじめに</h2>
+<p>今やAI自動化は多くの個人開発者やフリーランスエンジニアにとって欠かせないツールとなりました。しかし、会社員として働く私たちは、AI開発環境を構築する際には定時後に時間を割くしかありません。そのため、効率性とセキュリティが大前提となります。</p>
+<h2>MacのAI開発環境構築ステップ</h2>
+<h3>1. 必要なソフトウェアの選定</h3>
+<p>AI開発にはPythonやJavaScriptなどのプログラミング言語が必須です。また、IDEや開発ツールも選択肢に入ります。ここでは、Pythonの環境構築に注目し、Anacondaという強力なプラットフォームを使用します。</p>
+<h3>2. Anacondaのインストール</h3>
+<p>AnacondaはPythonの環境管理とパッケージ管理を一元化したツールで、AI開発に非常に便利です。公式サイトから最新版のAnaconda Distributionをダウンロードし、インストールしてください。</p>
+<pre><code class="language-sh"># ダウンロードとインストール（Macの場合）
+curl -O https://repo.anaconda.com/archive/Anaconda3-2023.5-2-MacOSX-x86_64.sh
+bash Anaconda3-2023.5-2-MacOSX-x86_64.sh
+</code></pre>
+<h3>3. 必要なライブラリのインストール</h3>
+<p>AI開発では様々なライブラリが必要です。ここでは TensorFlowとPyTorchを例にとって、インストール方法を説明します。</p>
+<pre><code class="language-sh"># Anacondaプロンプトで以下のコマンドを実行
+conda create -n ai_env python=3.9
+conda activate ai_env
+pip install tensorflow
+pip install torch
+</code></pre>
+<h3>4. デプロイ準備</h3>
+<p>AIモデルをMacにデプロイする際には、セキュリティとデータの管理が重要です。モデルデータは外部に漏洩しないよう、厳重な管理が必要です。</p>
+<pre><code class="language-sh"># モデル保存の例
+import torch
+model = torch.load('model.pth')
+torch.save(model.state_dict(), 'model_state_dict.pth')
+</code></pre>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。会社にバレない範囲でAI開発環境を構築するのは、時間と気合いがいりますが、効率的な開発を実現するための第一歩です。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
