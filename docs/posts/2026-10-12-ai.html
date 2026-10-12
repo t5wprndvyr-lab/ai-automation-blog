@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI自動化で定時で帰って、自動化で稼ぐ！ | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="会社員でもできる副業向けAI自動化テクニックを紹介。Claude CodeとCodexの使い方や実践事例を詳しく解説。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AI自動化で定時で帰って、自動化で稼ぐ！</h1><div class='meta'>2026-10-12</div><h2>はじめに</h2>
+<p>AI自動化とは、人間の手で行うべき作業をAIに任せることで、効率化や時間の節約を図る技術です。会社員でも平日夜や休日の短い時間を使って、この技術を活用して副業を始めることが可能です。例えば、Pythonを使った自動化スクリプトの作成や、API連携を活用した自動化などが考えられます。</p>
+<h2>AI自動化の基本的な流れ</h2>
+<ol>
+<li><strong>目的を明確化する</strong>：何を自動化するのかを明確にすることから始めます。これは時間節約やエラーの防止、生産性向上など、具体的な効果を想像することで実現できます。</li>
+<li><strong>必要なツールを把握する</strong>：自動化に使用するツールとして、Claude CodeやCodex、Python、Git、APIなどがあります。これらのツールは、それぞれ異なる特徴を持っているため、自分に合ったものを選択することが重要です。</li>
+<li><strong>自動化スクリプトの作成</strong>：Claude CodeやCodexを使って、具体的なタスクを自動化するためのコードを書きます。ここでは、Pythonやbashなどの一般的なツールを使用します。</li>
+<li><strong>テストと修正</strong>：作成したスクリプトをテストし、必要に応じて修正を行います。これはスクリプトの正確性と安定性を確保するために不可欠です。</li>
+<li><strong>デプロイと運用</strong>：テストが完了したら、スクリプトをデプロイし、実際の運用に入ります。</li>
+</ol>
+<h2>Claude CodeとCodexの使い分け</h2>
+<h3>Claude Codeの特徴</h3>
+<ul>
+<li><strong>Anthropic社が開発</strong>：Claude CodeはAnthropic社が開発したAIコーディングツールで、自然言語処理を活用してコードの生成を支援します。</li>
+<li><strong>直感的なインターフェース</strong>：ドラッグ&amp;ドロップで簡単にコードを作成できるため、プログラミング経験のない人でも使いやすいです。</li>
+<li><strong>コストが比較的低い</strong>：月額10ドル程度で利用できるため、個人向けの副業に適しています。</li>
+</ul>
+<h3>Codexの特徴</h3>
+<ul>
+<li><strong>OpenAIが開発</strong>：CodexはOpenAIが開発したAIコーディングツールで、Claude Codeと比べて高度な機能を持つため、より専門的なタスクに適しています。</li>
+<li><strong>API連携が充実</strong>：CodexはAPI連携に優れているため、様々なサービスとの連携が容易です。これにより、より高度な自動化を実現できます。</li>
+<li><strong>コストが高め</strong>：Codexの利用には月額数十ドルから数百ドルのコストが必要で、個人向けの副業としては少し高い壁になります。</li>
+</ul>
+<h2>実践例：Pythonでの自動化</h2>
+<p>PythonはAI自動化で広く使用されるプログラミング言語です。ここでは、具体的なPythonスクリプトの例を紹介します。</p>
+<h3>スクリプトの作成</h3>
+<pre><code class="language-python">import os
+import requests
+def fetch_data(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+def main():
+    url = &quot;https://example.com/api/data&quot;
+    data = fetch_data(url)
+    if data:
+        save_data_to_file(data)
+    else:
+        print(&quot;データ取得に失敗しました&quot;)
+def save_data_to_file(data):
+    filename = &quot;data.json&quot;
+    with open(filename, &quot;w&quot;) as f:
+        json.dump(data, f)
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
+<h3>スクリプトのテスト</h3>
+<p>このスクリプトは、指定されたURLからデータを取得し、JSON形式でファイルに保存するものです。テストの際には、<code>requests</code>ライブラリが正常に動作することと、ファイル書き込みが成功することを確認します。</p>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。副業に取り組む際は、AI自動化を活用することで効率的に時間を使うことができます。Claude CodeとCodexの使い分けや、Pythonを使った具体的な自動化スクリプトの作成方法を理解することで、副業の効率化に役立つでしょう。
+定時で帰って、自動化で稼ぐ。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
