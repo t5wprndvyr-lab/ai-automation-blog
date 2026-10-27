@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIツール連携で生産性UP！MCP・API連携の実践テクニック | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="AIツールのMCP・API連携は生産性向上の鍵。副業中の会社員が教える実践的な連携方法とコツ。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AIツール連携で生産性UP！MCP・API連携の実践テクニック</h1><div class='meta'>2026-10-27</div><h2>はじめに</h2>
+<p>こんにちは、AI自動化ラボの中の人です。会社員の立場から平日夜と週末を使ってAI自動化に取り組んでいます。この記事では、AIツール同士の連携について、特にMCP（管理コンソールプロトコル）とAPI連携について解説します。正直に言うと、これらをうまく使いこなすと業務効率がぐんと上がります。</p>
+<h2>なぜMCPとAPI連携が必要なのか</h2>
+<p>MCPは複数のAIツールを一元管理するためのプロトコルです。一方、APIは各ツール間で情報のやりとりを行うためのインターフェースです。これらの連携が可能であれば、個々のツールの強みを最大限に活かし、作業効率を大幅に向上させることができます。</p>
+<h2>連携の具体的な方法</h2>
+<h3>1. MCPの設定</h3>
+<p>MCPの設定には、各ツールの管理者権限が必要です。まず、管理コンソールにログインし、MCPの設定画面へ進みます。ここでは、各ツールの管理情報を登録し、連携先のツールを指定します。</p>
+<h3>2. APIの公開と認証</h3>
+<p>次に、APIの公開を行います。APIは通常、特定のURLと認証キーを必要とします。各ツールのドキュメントに従ってAPIキーを生成し、適切なURLを設定します。認証キーは安全な場所に保管し、漏洩しないように注意が必要です。</p>
+<h3>3. APIの呼び出し</h3>
+<p>連携先のツールからAPIを呼び出すためのコード例を示します。ここではPythonを使用しますが、他言語でも同様の手順で行うことができます。</p>
+<pre><code class="language-python">import requests
+def call_api(url, api_key):
+    headers = {'Authorization': f'Bearer {api_key}'}
+    response = requests.get(url, headers=headers)
+    return response.json()
+api_url = &quot;https://example.com/api&quot;
+api_key = &quot;your_api_key_here&quot;
+result = call_api(api_url, api_key)
+print(result)
+</code></pre>
+<h3>4. セキュリティと注意点</h3>
+<p>API連携を行う際には、セキュリティが非常に重要です。APIキーの管理、通信の暗号化（HTTPSを使用すること）、アクセスログの保存など、これらの点に十分な注意を払いましょう。</p>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
