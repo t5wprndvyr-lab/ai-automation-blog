@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プロンプト設計のコツと Claude Code と Codex の使い分け | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="AI自動化に興味がある開発者必見！プロの副業勢としての経験から、Claude CodeとCodexの違いと最適な使い方を解説します。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>プロンプト設計のコツと Claude Code と Codex の使い分け</h1><div class='meta'>2026-10-30</div><h2>はじめに</h2>
+<p>皆さん、こんにちは。AI自動化ラボの中の人です。会社員としての日々は忙しいですが、平日夜と週末の空き時間を使ってAI自動化に取り組んでいます。同じ立場の皆さんに役立つ情報をお伝えできればと思います。</p>
+<h2>なぜプロの副業勢としてClaude CodeとCodexを使い分けるべきなのか</h2>
+<p>AI自動化の世界は多種多様で、それぞれのツールが得意とする分野は異なります。Claude CodeとCodexはどちらも強力なAIコーディングツールですが、使い分けることでより効率的に作業を進めることができます。例えば、私は定時で帰って、自動化で稼ぐことにこだわっています。</p>
+<h2>Claude CodeとCodexの違い</h2>
+<h3>Claude Code</h3>
+<ul>
+<li><strong>特徴</strong>: Anthropic 社が開発したAIコーディングツールです。</li>
+<li><strong>強み</strong>: 一般的なコード生成や文脈理解が得意です。</li>
+<li><strong>使用例</strong>: フロントエンドやバックエンドのコード生成。</li>
+</ul>
+<h3>Codex</h3>
+<ul>
+<li><strong>特徴</strong>: OpenAI が開発したAIコーディングツールです。</li>
+<li><strong>強み</strong>: 生成精度が高く、複雑なコードも上手く生成できます。</li>
+<li><strong>使用例</strong>: 大規模なプロジェクトでのコード生成やリファクタリング。</li>
+</ul>
+<h2>プロンプト設計のコツ</h2>
+<h3>クラリアスな要求を伝える</h3>
+<ul>
+<li>明確な目的を説明し、可能な限り詳細を提供します。</li>
+<li>例えば、「JavaScriptでAPIからデータを取得し、データを表示する関数を作成してください。」</li>
+</ul>
+<h3>プロンプトの規模を適切に設定</h3>
+<ul>
+<li>要求が明確で具体的なプロンプトは短い方が効果的です。</li>
+<li>大規模なプロジェクトは分けて作業し、段階的に進行します。</li>
+</ul>
+<h2>Claude CodeとCodexの使い分け</h2>
+<h3>Claude Codeを使う場合</h3>
+<ul>
+<li>クラッシュのリスクが低い一般的なコード生成に使う。</li>
+<li>無効なコードを生成する可能性があるが、修正は比較的簡単。</li>
+</ul>
+<h3>Codexを使う場合</h3>
+<ul>
+<li>無誤率が高い複雑なコード生成に使う。</li>
+<li>修正が難しい場合でも、生成精度が高い点が重要です。</li>
+</ul>
+<h2>実際の例</h2>
+<h3>クラウドCodeでのコード生成</h3>
+<pre><code class="language-python">def fetch_data_from_api(api_url):
+    response = requests.get(api_url)
+    data = response.json()
+    return data
+</code></pre>
+<h3>Codexでのコード生成</h3>
+<pre><code class="language-python">def fetch_data_from_api(api_url):
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        raise Exception(f&quot;Failed to fetch data: {response.status_code}&quot;)
+</code></pre>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。そのためにはClaude CodeとCodexを上手に使い分けることが重要です。同じ会社員として、副業をしながらのAI自動化に励んでいる皆さん、一緒に効率的な作業をしましょう！</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
