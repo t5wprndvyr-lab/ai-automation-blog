@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MacでのAI開発環境構築 | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="会社員の副業者が知っておくべきMac向けAI開発環境の作り方とおすすめツール。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>MacでのAI開発環境構築</h1><div class='meta'>2026-11-04</div><h2>はじめに</h2>
+<p>会社員で平日夜と週末を使ってAI開発に取り組んでいるAI自動化ラボの中の人です。今では定時で帰宅できるようになり、AI自動化で副収入を得ています。ここでは、MacでのAI開発環境構築の具体的な手順とおすすめツールをご紹介します。</p>
+<h2>Mac向けAI開発環境の準備</h2>
+<h3>1. ソフトウェアのインストール</h3>
+<p>まず、PythonとAnacondaをインストールしましょう。これらはAI開発で頻繁に使用するツールです。</p>
+<pre><code>$ brew install python
+$ brew install anaconda
+</code></pre>
+<h3>2. エディタの選択</h3>
+<p>VSCodeはAI開発に最適なエディタの一つです。以下のようにインストールします。</p>
+<pre><code>$ brew install --cask visual-studio-code
+</code></pre>
+<h3>3. プロンプトエンジンの設定</h3>
+<p>Claude CodeとCodexはAIコーディングツールですが、使い分ける必要があります。Claude Codeを使うなら以下のように設定します。</p>
+<pre><code>$ conda install -c conda-forge openai
+</code></pre>
+<p>Codexを使うなら、以下の手順でインストールします。</p>
+<pre><code>$ conda install -c conda-forge openai
+</code></pre>
+<h3>4. パッケージのインストール</h3>
+<p>必要に応じて以下のパッケージをインストールします。</p>
+<pre><code>$ pip install numpy pandas scikit-learn
+</code></pre>
+<h2>実践的なAIプロジェクトの一例</h2>
+<h3>1. データの読み込み</h3>
+<pre><code class="language-python">import pandas as pd
+df = pd.read_csv('data.csv')
+</code></pre>
+<h3>2. データの前処理</h3>
+<pre><code class="language-python">df = df.dropna()
+</code></pre>
+<h3>3. モデルの訓練</h3>
+<pre><code class="language-python">from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+</code></pre>
+<h3>4. モデルの評価</h3>
+<pre><code class="language-python">from sklearn.metrics import accuracy_score
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+print('Accuracy:', accuracy)
+</code></pre>
+<h2>まとめ</h2>
+<p>会社にバレない範囲でAI開発に取り組むためには、適切な環境を整えることが重要です。本記事では、Mac向けAI開発環境の構築方法とおすすめツールをご紹介しました。自己責任で取り組んでくださいね。
+定時で帰って、自動化で稼ぐ。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
