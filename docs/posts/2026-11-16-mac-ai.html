@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MacでのAI開発環境構築 | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="会社員の副業でも成功させるAI開発環境の構築術。Claude CodeとCodexの使い分けも解説。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>MacでのAI開発環境構築</h1><div class='meta'>2026-11-16</div><h2>はじめに</h2>
+<p>今やAIは個人開発者にとって欠かせないツールの一つとなっています。しかし、会社員の副業においては、定時で帰って、自動化で稼ぐことが重要です。本記事では、Macを使ったAI開発環境の構築方法と、Claude CodeとCodexの使い分けについて詳しく解説します。同じ会社員の副業者として、実際の体験から学んだことや注意点を共有します。</p>
+<h2>MacでのAI開発環境構築</h2>
+<h3>1. 必要なソフトウェアのインストール</h3>
+<p>AI開発に必要なソフトウェアをインストールしましょう。まずは、Pythonとその開発環境であるPyCharmをインストールします。PyCharmはPython開発に特化したIDEで、コードの自動完成やエラー検出機能が豊富です。</p>
+<pre><code class="language-bash">brew install pyenv
+pyenv install 3.9.6
+pyenv global 3.9.6
+pip install pycharm
+</code></pre>
+<h3>2. Claude CodeとCodexのインストール</h3>
+<p>Claude CodeとCodexは、それぞれ異なるAIツールなので、使い分けが重要です。Claude CodeはAnthropic社が開発したAIコーディングツールで、CodexはOpenAIが開発したものです。具体的な使い分けは後ほど解説します。</p>
+<pre><code class="language-bash"># Claude Codeのインストール
+# 公式サイトの案内に従ってインストールしてください
+# Codexのインストール
+# 公式サイトの案内に従ってインストールしてください
+</code></pre>
+<h3>3. GitHubの設定</h3>
+<p>AIプロジェクトをGitHubにプッシュする前に、GitHubのアカウント設定を行いましょう。GitHubでのプロジェクト管理は重要なステップです。</p>
+<pre><code class="language-bash"># GitHubのクレデンシャル設定
+gh auth login
+# リポジトリ作成
+gh repo create &lt;リポジトリ名&gt; --public
+</code></pre>
+<h2>Claude CodeとCodexの使い分け</h2>
+<h3>1. プロンプト設計のコツ</h3>
+<p>Claude CodeとCodexの使い分けは、プロンプト設計のコツが鍵となります。Claude Codeは自然言語理解能力が高く、Codexはコード生成能力が高いという特徴があります。</p>
+<pre><code class="language-bash"># プロンプト例
+# Claude Code: &quot;生成してほしいコードの概要を説明してください。&quot;
+# Codex: &quot;具体的なコードを生成してほしい場合、詳細な要求を記述してください。&quot;
+</code></pre>
+<h3>2. 実際の例</h3>
+<p>例えば、AIアプリケーションの設計段階ではClaude Codeを使用し、詳細なコード実装段階ではCodexを使用します。</p>
+<pre><code class="language-python"># Claude Codeを使用した例
+def main():
+    # 生成してほしいコードの概要を説明してください。
+    ...
+# Codexを使用した例
+def main():
+    # 具体的なコードを生成してほしい場合、詳細な要求を記述してください。
+    ...
+</code></pre>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。MacでのAI開発環境を構築し、Claude CodeとCodexの使い分けを理解することで、効率的な開発環境を実現できます。同じ会社員の副業者として、これらを活用してぜひAI開発に挑戦してみてください。</p>
+<blockquote>
+<p>自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+</blockquote>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
