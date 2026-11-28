@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI自動化で定時で帰って、自動化で稼ぐ！ | AI・Codex・Claude活用ラボ</title>
+<meta name="description" content="AI自動化の実践テクニックを紹介。会社員副業者が活用する方法を詳しく解説します。">
+<!-- AdSense未設定: .env の ADSENSE_CLIENT_ID を設定すると自動で挿入されます -->
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif; max-width: 720px; margin: 0 auto; padding: 24px 16px 80px; line-height: 1.8; }
+  header { margin-bottom: 32px; }
+  header a { text-decoration: none; color: inherit; font-weight: 700; font-size: 1.3rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; margin-top: 2em; border-left: 4px solid #6366f1; padding-left: 10px; }
+  .meta { color: #888; font-size: 0.9rem; margin-bottom: 1.5em; }
+  .card { display: block; padding: 16px 0; border-bottom: 1px solid #e5e5e5; text-decoration: none; color: inherit; }
+  .card h2 { margin: 0 0 6px; border: none; padding: 0; font-size: 1.15rem; }
+  .card p { margin: 0; color: #666; font-size: 0.95rem; }
+  blockquote { background: #f5f5f7; border-left: 4px solid #6366f1; margin: 1.5em 0; padding: 10px 16px; border-radius: 4px; }
+  pre { background: #1e1e2e; color: #eee; padding: 12px; border-radius: 8px; overflow-x: auto; }
+  code { background: rgba(99,102,241,0.1); padding: 2px 5px; border-radius: 4px; }
+  footer { margin-top: 60px; color: #999; font-size: 0.85rem; text-align: center; }
+</style>
+</head>
+<body>
+<header><a href="../index.html">AI・Codex・Claude活用ラボ</a></header>
+<h1>AI自動化で定時で帰って、自動化で稼ぐ！</h1><div class='meta'>2026-11-29</div><h2>準備ステップ</h2>
+<p>平日は定時後の2時間しか触れないので、副業はこの時間にこなさなければなりません。AI自動化の導入は時間管理が鍵です。まずは、使用するツールと環境を整えることが重要です。ここでは、Claude CodeとCodexの使い分け、プロンプト設計のコツ、そして実際の自動化タスクについて解説します。</p>
+<h2>Claude CodeとCodexの使い分け</h2>
+<p>正直に言うと、Claude CodeとCodexは全く異なるツールです。Claude CodeはAnthropic社が開発したAIコーディングツールで、CodexはOpenAIが開発したものです。使用目的や特性は異なるので、使い分けは必須です。</p>
+<h3>Claude Codeの特徴</h3>
+<ul>
+<li><strong>自然言語処理の精度が高い</strong></li>
+<li><strong>API連携が容易</strong></li>
+<li><strong>コードの生成精度が高い</strong></li>
+</ul>
+<h3>Codexの特徴</h3>
+<ul>
+<li><strong>幅広いプログラミング言語に対応</strong></li>
+<li><strong>API連携の範囲が広い</strong></li>
+<li><strong>多言語対応</strong>
+正直に言うと、私はClaude Codeを使用しています。その理由は、自然言語処理の精度が高く、コードの生成精度が高いからです。</li>
+</ul>
+<h2>プロンプト設計のコツ</h2>
+<p>プロンプトの設計はAI自動化の鍵を握ります。具体的なタスクを明確に伝え、必要以上の情報は省きます。以下に、Claude CodeとCodexのプロンプト設計のコツをご紹介します。</p>
+<h3>Claude Codeのプロンプト設計</h3>
+<ul>
+<li><strong>明確に目的を伝える</strong></li>
+<li><strong>必要な情報のみ提供する</strong></li>
+<li><strong>具体的な例を提示する</strong></li>
+</ul>
+<h3>Codexのプロンプト設計</h3>
+<ul>
+<li><strong>幅広い文脈を把握する</strong></li>
+<li><strong>多言語対応の必要がある場合は注意する</strong></li>
+<li><strong>API連携の詳細を明確に伝える</strong>
+正直に言うと、私はプロンプトの設計を慎重に行います。明確な目的を伝え、必要な情報のみ提供することで、AIの応答精度を上げることができます。</li>
+</ul>
+<h2>実践的な例</h2>
+<p>次の自動化タスクをClaude CodeとCodexで実現します。</p>
+<h3>タスク: CSVファイルの読み書き</h3>
+<h4>Claude Codeの場合</h4>
+<pre><code class="language-python"># CSVファイルの読み書き
+import csv
+def read_csv(file_path):
+    with open(file_path, 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            print(row)
+def write_csv(file_path, data):
+    with open(file_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        for row in data:
+            writer.writerow(row)
+read_csv('example.csv')
+write_csv('output.csv', [['A', 'B', 'C'], ['D', 'E', 'F']])
+</code></pre>
+<h4>Codexの場合</h4>
+<pre><code class="language-python"># CSVファイルの読み書き
+import csv
+def read_csv(file_path):
+    with open(file_path, 'r') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            print(row)
+def write_csv(file_path, data):
+    with open(file_path, 'w', newline='') as f:
+        writer = csv.writer(f)
+        for row in data:
+            writer.writerow(row)
+read_csv('example.csv')
+write_csv('output.csv', [['A', 'B', 'C'], ['D', 'E', 'F']])
+</code></pre>
+<p>正直に言うと、Claude CodeとCodexは実装自体は似ていますが、プロンプトの設計やAPI連携の方法が異なるので注意が必要です。</p>
+<h2>まとめ</h2>
+<p>定時で帰って、自動化で稼ぐ。AI自動化の実践テクニックをご紹介しました。Claude CodeとCodexの使い分けやプロンプト設計のコツを理解し、実践することで、副業でも効率的に仕事ができます。
+定時で帰って、自動化で稼ぐ。&gt; 自社の業務自動化・AI導入のご相談はお気軽にどうぞ → <a href="https://note.com/fire154154154">https://note.com/fire154154154</a></p>
+<footer>&copy; AI・Codex・Claude活用ラボ</footer>
+</body>
+</html>
